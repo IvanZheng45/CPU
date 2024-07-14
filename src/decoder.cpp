@@ -159,8 +159,8 @@ void Decoder::decode(Word INST) {
             *hlt = false;
             *bs = 0x2;
             *off = IMM_INST;
-
             break;
+            
         case 0xB:
             *dr = 0x0;
             *sa = RS;
