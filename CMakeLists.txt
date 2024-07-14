@@ -12,7 +12,7 @@ include_directories(include)
 
 # Add the executable
 add_executable(MyProject
-    src/main.cpp
     src/cpu.cpp
     src/decoder.cpp
+    src/control.cpp
 )

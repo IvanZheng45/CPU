@@ -4,7 +4,7 @@
 #include "decoder.h"
 #include <iostream>
 #include "symbols.h"
-
+#include "control.h"
 
 struct Mem
 {
@@ -31,19 +31,28 @@ struct Mem
 
 struct CPU
 {   
-    
     Word PC;
     Word SP;
 
-    Byte C : 1;
-    Byte V : 1;
-    Byte N : 1;
-    Byte Z : 1;
+    Byte dr, sa, sb, imm, fs, bs, off, CSEL, OSEL;
+    bool mb, md, ld, mw, hlt, C, V, N, Z, BSEL, CISEL, LA, LR, OA;
+
+    Decoder decoder;
+    Control control;
+
+    CPU() : 
+        dr(0), sa(0), sb(0), imm(0), fs(0), bs(0), off(0), CSEL(0), OSEL(0),
+        mb(false), md(false), ld(false), mw(false), hlt(false),
+        C(false), V(false), N(false), Z(false),
+        BSEL(false), CISEL(false), LA(false), LR(false), OA(false),
+        decoder(&dr, &sa, &sb, &imm, &mb, &fs, &md, &ld, &mw, &hlt, &bs, &off),
+        control(&BSEL, &CISEL, &CSEL, &OSEL, &LA, &LR, &OA)
+    {}
+
 
     void Reset(Mem& memory){
         PC = 0xFFFC;
         SP = 0xFF;
-        C = V = N = Z = 0;
 
         memory.Initialize();
     }
@@ -70,25 +79,11 @@ struct CPU
     }
 
     void Execute(Mem& memory){
-        while (true){
-            Word Iin = instruction_fetch(memory);
-            Decoder decoder(Iin);
-            decoder.decode();
+        Word Iin = instruction_fetch(memory);
 
-            std::cout << "DR: " << static_cast<int>(decoder.getDR()) << std::endl;
-            std::cout << "SA: " << static_cast<int>(decoder.getSA()) << std::endl;
-            std::cout << "SB: " << static_cast<int>(decoder.getSB()) << std::endl;
-            std::cout << "IMM: " << static_cast<int>(decoder.getIMM()) << std::endl;
-            std::cout << "MB: " << decoder.getMB() << std::endl;
-            std::cout << "FS: " << static_cast<int>(decoder.getFS()) << std::endl;
-            std::cout << "MD: " << decoder.getMD() << std::endl;
-            std::cout << "LD: " << decoder.getLD() << std::endl;
-            std::cout << "MW: " << decoder.getMW() << std::endl;
-            std::cout << "HLT: " << decoder.getHLT() << std::endl;
-            std::cout << "BS: " << static_cast<int>(decoder.getBS()) << std::endl;
-            std::cout << "OFF: " << static_cast<int>(decoder.getOFF()) << std::endl;
-
-        }
+        decoder.decode(Iin);   
+   
+        control.control(fs);
 
     }
 
