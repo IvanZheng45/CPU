@@ -7,7 +7,6 @@ Decoder::Decoder(Byte* dr, Byte* sa, Byte* sb, Byte* imm, bool* mb, Byte* fs, bo
     : dr(dr), sa(sa), sb(sb), imm(imm), mb(mb), fs(fs), md(md), ld(ld), mw(mw), hlt(hlt), bs(bs), off(off) {
 }
 
-
 // Decode method
 void Decoder::decode(Word INST) {
 

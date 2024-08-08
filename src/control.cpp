@@ -1,4 +1,5 @@
 #include "control.h"
+#include "symbols.h"
 
 Control::Control(bool* BSEL, bool* CISEL, Byte* CSEL, Byte* OSEL, bool* LA, bool* LR, bool* OA)
     : BSEL(BSEL), CISEL(CISEL), CSEL(CSEL), OSEL(OSEL), LA(LA), LR(LR), OA(OA) {}

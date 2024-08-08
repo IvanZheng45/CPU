@@ -111,11 +111,71 @@ CMakeFiles/MyProject.dir/src/control.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/MyProject.dir/src/control.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ivan/cpu/CPU/src/control.cpp -o CMakeFiles/MyProject.dir/src/control.cpp.s
 
+CMakeFiles/MyProject.dir/src/alu.cpp.o: CMakeFiles/MyProject.dir/flags.make
+CMakeFiles/MyProject.dir/src/alu.cpp.o: ../src/alu.cpp
+CMakeFiles/MyProject.dir/src/alu.cpp.o: CMakeFiles/MyProject.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ivan/cpu/CPU/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/MyProject.dir/src/alu.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyProject.dir/src/alu.cpp.o -MF CMakeFiles/MyProject.dir/src/alu.cpp.o.d -o CMakeFiles/MyProject.dir/src/alu.cpp.o -c /home/ivan/cpu/CPU/src/alu.cpp
+
+CMakeFiles/MyProject.dir/src/alu.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/MyProject.dir/src/alu.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ivan/cpu/CPU/src/alu.cpp > CMakeFiles/MyProject.dir/src/alu.cpp.i
+
+CMakeFiles/MyProject.dir/src/alu.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/MyProject.dir/src/alu.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ivan/cpu/CPU/src/alu.cpp -o CMakeFiles/MyProject.dir/src/alu.cpp.s
+
+CMakeFiles/MyProject.dir/src/adder.cpp.o: CMakeFiles/MyProject.dir/flags.make
+CMakeFiles/MyProject.dir/src/adder.cpp.o: ../src/adder.cpp
+CMakeFiles/MyProject.dir/src/adder.cpp.o: CMakeFiles/MyProject.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ivan/cpu/CPU/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/MyProject.dir/src/adder.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyProject.dir/src/adder.cpp.o -MF CMakeFiles/MyProject.dir/src/adder.cpp.o.d -o CMakeFiles/MyProject.dir/src/adder.cpp.o -c /home/ivan/cpu/CPU/src/adder.cpp
+
+CMakeFiles/MyProject.dir/src/adder.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/MyProject.dir/src/adder.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ivan/cpu/CPU/src/adder.cpp > CMakeFiles/MyProject.dir/src/adder.cpp.i
+
+CMakeFiles/MyProject.dir/src/adder.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/MyProject.dir/src/adder.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ivan/cpu/CPU/src/adder.cpp -o CMakeFiles/MyProject.dir/src/adder.cpp.s
+
+CMakeFiles/MyProject.dir/src/logical.cpp.o: CMakeFiles/MyProject.dir/flags.make
+CMakeFiles/MyProject.dir/src/logical.cpp.o: ../src/logical.cpp
+CMakeFiles/MyProject.dir/src/logical.cpp.o: CMakeFiles/MyProject.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ivan/cpu/CPU/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/MyProject.dir/src/logical.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyProject.dir/src/logical.cpp.o -MF CMakeFiles/MyProject.dir/src/logical.cpp.o.d -o CMakeFiles/MyProject.dir/src/logical.cpp.o -c /home/ivan/cpu/CPU/src/logical.cpp
+
+CMakeFiles/MyProject.dir/src/logical.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/MyProject.dir/src/logical.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ivan/cpu/CPU/src/logical.cpp > CMakeFiles/MyProject.dir/src/logical.cpp.i
+
+CMakeFiles/MyProject.dir/src/logical.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/MyProject.dir/src/logical.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ivan/cpu/CPU/src/logical.cpp -o CMakeFiles/MyProject.dir/src/logical.cpp.s
+
+CMakeFiles/MyProject.dir/src/shifter.cpp.o: CMakeFiles/MyProject.dir/flags.make
+CMakeFiles/MyProject.dir/src/shifter.cpp.o: ../src/shifter.cpp
+CMakeFiles/MyProject.dir/src/shifter.cpp.o: CMakeFiles/MyProject.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ivan/cpu/CPU/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/MyProject.dir/src/shifter.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyProject.dir/src/shifter.cpp.o -MF CMakeFiles/MyProject.dir/src/shifter.cpp.o.d -o CMakeFiles/MyProject.dir/src/shifter.cpp.o -c /home/ivan/cpu/CPU/src/shifter.cpp
+
+CMakeFiles/MyProject.dir/src/shifter.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/MyProject.dir/src/shifter.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ivan/cpu/CPU/src/shifter.cpp > CMakeFiles/MyProject.dir/src/shifter.cpp.i
+
+CMakeFiles/MyProject.dir/src/shifter.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/MyProject.dir/src/shifter.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ivan/cpu/CPU/src/shifter.cpp -o CMakeFiles/MyProject.dir/src/shifter.cpp.s
+
 # Object files for target MyProject
 MyProject_OBJECTS = \
 "CMakeFiles/MyProject.dir/src/cpu.cpp.o" \
 "CMakeFiles/MyProject.dir/src/decoder.cpp.o" \
-"CMakeFiles/MyProject.dir/src/control.cpp.o"
+"CMakeFiles/MyProject.dir/src/control.cpp.o" \
+"CMakeFiles/MyProject.dir/src/alu.cpp.o" \
+"CMakeFiles/MyProject.dir/src/adder.cpp.o" \
+"CMakeFiles/MyProject.dir/src/logical.cpp.o" \
+"CMakeFiles/MyProject.dir/src/shifter.cpp.o"
 
 # External object files for target MyProject
 MyProject_EXTERNAL_OBJECTS =
@@ -123,9 +183,13 @@ MyProject_EXTERNAL_OBJECTS =
 MyProject: CMakeFiles/MyProject.dir/src/cpu.cpp.o
 MyProject: CMakeFiles/MyProject.dir/src/decoder.cpp.o
 MyProject: CMakeFiles/MyProject.dir/src/control.cpp.o
+MyProject: CMakeFiles/MyProject.dir/src/alu.cpp.o
+MyProject: CMakeFiles/MyProject.dir/src/adder.cpp.o
+MyProject: CMakeFiles/MyProject.dir/src/logical.cpp.o
+MyProject: CMakeFiles/MyProject.dir/src/shifter.cpp.o
 MyProject: CMakeFiles/MyProject.dir/build.make
 MyProject: CMakeFiles/MyProject.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ivan/cpu/CPU/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable MyProject"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ivan/cpu/CPU/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable MyProject"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/MyProject.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

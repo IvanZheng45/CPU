@@ -117,24 +117,72 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named MyProject
+# Target rules for targets named CPU
 
 # Build rule for target.
-MyProject: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MyProject
-.PHONY : MyProject
+CPU: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CPU
+.PHONY : CPU
 
 # fast build rule for target.
-MyProject/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyProject.dir/build.make CMakeFiles/MyProject.dir/build
-.PHONY : MyProject/fast
+CPU/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPU.dir/build.make CMakeFiles/CPU.dir/build
+.PHONY : CPU/fast
+
+src/adder.o: src/adder.cpp.o
+.PHONY : src/adder.o
+
+# target to build an object file
+src/adder.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPU.dir/build.make CMakeFiles/CPU.dir/src/adder.cpp.o
+.PHONY : src/adder.cpp.o
+
+src/adder.i: src/adder.cpp.i
+.PHONY : src/adder.i
+
+# target to preprocess a source file
+src/adder.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPU.dir/build.make CMakeFiles/CPU.dir/src/adder.cpp.i
+.PHONY : src/adder.cpp.i
+
+src/adder.s: src/adder.cpp.s
+.PHONY : src/adder.s
+
+# target to generate assembly for a file
+src/adder.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPU.dir/build.make CMakeFiles/CPU.dir/src/adder.cpp.s
+.PHONY : src/adder.cpp.s
+
+src/alu.o: src/alu.cpp.o
+.PHONY : src/alu.o
+
+# target to build an object file
+src/alu.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPU.dir/build.make CMakeFiles/CPU.dir/src/alu.cpp.o
+.PHONY : src/alu.cpp.o
+
+src/alu.i: src/alu.cpp.i
+.PHONY : src/alu.i
+
+# target to preprocess a source file
+src/alu.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPU.dir/build.make CMakeFiles/CPU.dir/src/alu.cpp.i
+.PHONY : src/alu.cpp.i
+
+src/alu.s: src/alu.cpp.s
+.PHONY : src/alu.s
+
+# target to generate assembly for a file
+src/alu.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPU.dir/build.make CMakeFiles/CPU.dir/src/alu.cpp.s
+.PHONY : src/alu.cpp.s
 
 src/control.o: src/control.cpp.o
 .PHONY : src/control.o
 
 # target to build an object file
 src/control.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyProject.dir/build.make CMakeFiles/MyProject.dir/src/control.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPU.dir/build.make CMakeFiles/CPU.dir/src/control.cpp.o
 .PHONY : src/control.cpp.o
 
 src/control.i: src/control.cpp.i
@@ -142,7 +190,7 @@ src/control.i: src/control.cpp.i
 
 # target to preprocess a source file
 src/control.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyProject.dir/build.make CMakeFiles/MyProject.dir/src/control.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPU.dir/build.make CMakeFiles/CPU.dir/src/control.cpp.i
 .PHONY : src/control.cpp.i
 
 src/control.s: src/control.cpp.s
@@ -150,7 +198,7 @@ src/control.s: src/control.cpp.s
 
 # target to generate assembly for a file
 src/control.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyProject.dir/build.make CMakeFiles/MyProject.dir/src/control.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPU.dir/build.make CMakeFiles/CPU.dir/src/control.cpp.s
 .PHONY : src/control.cpp.s
 
 src/cpu.o: src/cpu.cpp.o
@@ -158,7 +206,7 @@ src/cpu.o: src/cpu.cpp.o
 
 # target to build an object file
 src/cpu.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyProject.dir/build.make CMakeFiles/MyProject.dir/src/cpu.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPU.dir/build.make CMakeFiles/CPU.dir/src/cpu.cpp.o
 .PHONY : src/cpu.cpp.o
 
 src/cpu.i: src/cpu.cpp.i
@@ -166,7 +214,7 @@ src/cpu.i: src/cpu.cpp.i
 
 # target to preprocess a source file
 src/cpu.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyProject.dir/build.make CMakeFiles/MyProject.dir/src/cpu.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPU.dir/build.make CMakeFiles/CPU.dir/src/cpu.cpp.i
 .PHONY : src/cpu.cpp.i
 
 src/cpu.s: src/cpu.cpp.s
@@ -174,7 +222,7 @@ src/cpu.s: src/cpu.cpp.s
 
 # target to generate assembly for a file
 src/cpu.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyProject.dir/build.make CMakeFiles/MyProject.dir/src/cpu.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPU.dir/build.make CMakeFiles/CPU.dir/src/cpu.cpp.s
 .PHONY : src/cpu.cpp.s
 
 src/decoder.o: src/decoder.cpp.o
@@ -182,7 +230,7 @@ src/decoder.o: src/decoder.cpp.o
 
 # target to build an object file
 src/decoder.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyProject.dir/build.make CMakeFiles/MyProject.dir/src/decoder.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPU.dir/build.make CMakeFiles/CPU.dir/src/decoder.cpp.o
 .PHONY : src/decoder.cpp.o
 
 src/decoder.i: src/decoder.cpp.i
@@ -190,7 +238,7 @@ src/decoder.i: src/decoder.cpp.i
 
 # target to preprocess a source file
 src/decoder.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyProject.dir/build.make CMakeFiles/MyProject.dir/src/decoder.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPU.dir/build.make CMakeFiles/CPU.dir/src/decoder.cpp.i
 .PHONY : src/decoder.cpp.i
 
 src/decoder.s: src/decoder.cpp.s
@@ -198,8 +246,56 @@ src/decoder.s: src/decoder.cpp.s
 
 # target to generate assembly for a file
 src/decoder.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyProject.dir/build.make CMakeFiles/MyProject.dir/src/decoder.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPU.dir/build.make CMakeFiles/CPU.dir/src/decoder.cpp.s
 .PHONY : src/decoder.cpp.s
+
+src/logical.o: src/logical.cpp.o
+.PHONY : src/logical.o
+
+# target to build an object file
+src/logical.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPU.dir/build.make CMakeFiles/CPU.dir/src/logical.cpp.o
+.PHONY : src/logical.cpp.o
+
+src/logical.i: src/logical.cpp.i
+.PHONY : src/logical.i
+
+# target to preprocess a source file
+src/logical.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPU.dir/build.make CMakeFiles/CPU.dir/src/logical.cpp.i
+.PHONY : src/logical.cpp.i
+
+src/logical.s: src/logical.cpp.s
+.PHONY : src/logical.s
+
+# target to generate assembly for a file
+src/logical.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPU.dir/build.make CMakeFiles/CPU.dir/src/logical.cpp.s
+.PHONY : src/logical.cpp.s
+
+src/shifter.o: src/shifter.cpp.o
+.PHONY : src/shifter.o
+
+# target to build an object file
+src/shifter.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPU.dir/build.make CMakeFiles/CPU.dir/src/shifter.cpp.o
+.PHONY : src/shifter.cpp.o
+
+src/shifter.i: src/shifter.cpp.i
+.PHONY : src/shifter.i
+
+# target to preprocess a source file
+src/shifter.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPU.dir/build.make CMakeFiles/CPU.dir/src/shifter.cpp.i
+.PHONY : src/shifter.cpp.i
+
+src/shifter.s: src/shifter.cpp.s
+.PHONY : src/shifter.s
+
+# target to generate assembly for a file
+src/shifter.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPU.dir/build.make CMakeFiles/CPU.dir/src/shifter.cpp.s
+.PHONY : src/shifter.cpp.s
 
 # Help Target
 help:
@@ -209,7 +305,13 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... MyProject"
+	@echo "... CPU"
+	@echo "... src/adder.o"
+	@echo "... src/adder.i"
+	@echo "... src/adder.s"
+	@echo "... src/alu.o"
+	@echo "... src/alu.i"
+	@echo "... src/alu.s"
 	@echo "... src/control.o"
 	@echo "... src/control.i"
 	@echo "... src/control.s"
@@ -219,6 +321,12 @@ help:
 	@echo "... src/decoder.o"
 	@echo "... src/decoder.i"
 	@echo "... src/decoder.s"
+	@echo "... src/logical.o"
+	@echo "... src/logical.i"
+	@echo "... src/logical.s"
+	@echo "... src/shifter.o"
+	@echo "... src/shifter.i"
+	@echo "... src/shifter.s"
 .PHONY : help
 
 

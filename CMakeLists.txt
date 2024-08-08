@@ -11,8 +11,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 include_directories(include)
 
 # Add the executable
-add_executable(MyProject
+add_executable(CPU
     src/cpu.cpp
     src/decoder.cpp
     src/control.cpp
+    src/alu.cpp
+    src/adder.cpp
+    src/logical.cpp
+    src/shifter.cpp
 )

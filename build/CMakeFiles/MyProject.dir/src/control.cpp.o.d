@@ -20,4 +20,5 @@ CMakeFiles/MyProject.dir/src/control.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/wchar.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
+ /home/ivan/cpu/CPU/include/symbols.h \
  /home/ivan/cpu/CPU/include/symbols.h

@@ -5,7 +5,7 @@
 #include <iostream>
 #include "symbols.h"
 #include "control.h"
-
+#include "alu.h"
 struct Mem
 {
     static constexpr u32 MAX_MEM = 1024*64;
@@ -29,38 +29,60 @@ struct Mem
 
 };
 
+struct reg_file
+{
+    Byte reg[8];
+    
+    void Initialize(){
+
+        for (Byte i = 0; i<8; i++){
+            reg[i] = 0;
+        }
+    }
+
+    Byte operator[](Byte reg_num) const{
+        return reg[reg_num];
+    }
+
+    Byte& operator[](Byte reg_num) {
+        return reg[reg_num];
+    }
+
+
+};
+
 struct CPU
 {   
-    Word PC;
-    Word SP;
+    Word pc;
+    Word sp;
 
-    Byte dr, sa, sb, imm, fs, bs, off, CSEL, OSEL;
-    bool mb, md, ld, mw, hlt, C, V, N, Z, BSEL, CISEL, LA, LR, OA;
+    Byte dr, sa, sb, imm, fs, bs, off, Y;
+    bool mb, md, ld, mw, hlt, mp, pcsel, C, V, N, Z;
 
     Decoder decoder;
-    Control control;
+    Alu alu;
 
     CPU() : 
-        dr(0), sa(0), sb(0), imm(0), fs(0), bs(0), off(0), CSEL(0), OSEL(0),
-        mb(false), md(false), ld(false), mw(false), hlt(false),
+        dr(0), sa(0), sb(0), imm(0), fs(0), bs(0), off(0), Y(0),
+        mb(false), md(false), ld(false), mw(false), hlt(false), mp(false), pcsel(false),
         C(false), V(false), N(false), Z(false),
-        BSEL(false), CISEL(false), LA(false), LR(false), OA(false),
         decoder(&dr, &sa, &sb, &imm, &mb, &fs, &md, &ld, &mw, &hlt, &bs, &off),
-        control(&BSEL, &CISEL, &CSEL, &OSEL, &LA, &LR, &OA)
+        alu(&Y, &C, &V, &N, &Z)
     {}
 
 
-    void Reset(Mem& memory){
-        PC = 0xFFFC;
-        SP = 0xFF;
+    void Reset(Mem& memory, reg_file& reg){
+        pc = 0xFFFC;
+        sp = 0xFF;
 
         memory.Initialize();
+        reg.Initialize();
     }
 
     Word instruction_fetch(Mem& memory){
         
-        Byte a = memory[PC];
-        Byte b = memory[PC+1];
+        Byte a = memory[pc];
+        Byte b = memory[pc+1];
 
         char str_a[8], str_b[8];
 
@@ -77,15 +99,65 @@ struct CPU
         
         return Iin;
     }
+    
+    void checkButtonPress() {
+        std::cout << "CPU is halted. Press Enter to continue..." << std::endl;
+        std::cin.get();
+    }
 
-    void Execute(Mem& memory){
+    void Execute(Mem& memory, reg_file& reg){
         Word Iin = instruction_fetch(memory);
+
 
         decoder.decode(Iin);   
    
-        control.control(fs);
 
-    }
+        Byte IMM_SE = imm & 0x3F; 
+        IMM_SE |= ((imm & 0x20) ? 0xC0 : 0);
+    
+        Byte DataA = reg[sa];
+        Byte DataB = reg[sb];
+
+        alu.alu(DataA, mb ? IMM_SE : DataB, fs);
+        Byte DataD = Y;
+        
+        Byte DataC = md ? memory[Y] : DataD;
+        
+        if (ld){
+            reg[dr] = DataC;
+        }
+        
+        if (mw){
+            memory[Y] = DataB;
+        };
+
+        if (hlt) {
+            checkButtonPress();
+        }
+
+        if (bs == 0) {
+            mp = Z;
+        } else if (bs == 1) {
+            mp = !Z;
+        } else if (bs == 2) {
+            mp = !N;
+        } else if (bs == 3) {
+            mp = N;
+        } else {
+            mp = false;
+        }
+
+        pcsel = mp;
+        
+        if (!pcsel){
+            pc += 2;
+        }
+        else{
+            pc += imm*2 + 2;
+        }
+
+
+    };
 
 };
 
@@ -93,11 +165,12 @@ int main()
 {   
     Mem mem;
     CPU cpu;
-    cpu.Reset(mem);
+    reg_file reg;
+    cpu.Reset(mem, reg);
 
-    mem[0xFFFC] = 0xA9;
-    mem[0xFFFD] = 0xA9;
-    cpu.Execute(mem);
+    mem[0xFFFC] = 0;
+    mem[0xFFFD] = 0;
+    cpu.Execute(mem, reg);
     
 
 }

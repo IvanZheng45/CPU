@@ -151,4 +151,7 @@ CMakeFiles/MyProject.dir/src/cpu.cpp.o: /home/ivan/cpu/CPU/src/cpu.cpp \
  /usr/include/c++/11/bits/ostream.tcc /usr/include/c++/11/istream \
  /usr/include/c++/11/bits/istream.tcc \
  /home/ivan/cpu/CPU/include/symbols.h \
- /home/ivan/cpu/CPU/include/control.h
+ /home/ivan/cpu/CPU/include/control.h /home/ivan/cpu/CPU/include/alu.h \
+ /home/ivan/cpu/CPU/include/control.h /home/ivan/cpu/CPU/include/adder.h \
+ /home/ivan/cpu/CPU/include/logical.h \
+ /home/ivan/cpu/CPU/include/shifter.h
