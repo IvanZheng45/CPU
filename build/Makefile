@@ -249,6 +249,30 @@ src/decoder.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPU.dir/build.make CMakeFiles/CPU.dir/src/decoder.cpp.s
 .PHONY : src/decoder.cpp.s
 
+src/display.o: src/display.cpp.o
+.PHONY : src/display.o
+
+# target to build an object file
+src/display.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPU.dir/build.make CMakeFiles/CPU.dir/src/display.cpp.o
+.PHONY : src/display.cpp.o
+
+src/display.i: src/display.cpp.i
+.PHONY : src/display.i
+
+# target to preprocess a source file
+src/display.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPU.dir/build.make CMakeFiles/CPU.dir/src/display.cpp.i
+.PHONY : src/display.cpp.i
+
+src/display.s: src/display.cpp.s
+.PHONY : src/display.s
+
+# target to generate assembly for a file
+src/display.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CPU.dir/build.make CMakeFiles/CPU.dir/src/display.cpp.s
+.PHONY : src/display.cpp.s
+
 src/logical.o: src/logical.cpp.o
 .PHONY : src/logical.o
 
@@ -321,6 +345,9 @@ help:
 	@echo "... src/decoder.o"
 	@echo "... src/decoder.i"
 	@echo "... src/decoder.s"
+	@echo "... src/display.o"
+	@echo "... src/display.i"
+	@echo "... src/display.s"
 	@echo "... src/logical.o"
 	@echo "... src/logical.i"
 	@echo "... src/logical.s"

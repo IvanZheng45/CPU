@@ -25,11 +25,6 @@ void Alu::alu(Byte A, Byte B, Byte fs) {
 
     control.control(fs);
 
-    OSEL = OSEL_adder;
-    A = 127;
-    B = 127;
-    BSEL = false;
-    CISEL = false;
 
     if (OSEL == OSEL_adder){
 
@@ -37,6 +32,9 @@ void Alu::alu(Byte A, Byte B, Byte fs) {
       bool CI = CISEL ? 1 : 0;
 
       adder.add(A, B_input, CI);
+      
+      // std::cout << "A = " << static_cast<int>(A) << std::endl;
+
     };
     if (OSEL == OSEL_logic){
   

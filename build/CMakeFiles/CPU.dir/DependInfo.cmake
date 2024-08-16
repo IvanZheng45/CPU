@@ -13,6 +13,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/ivan/cpu/CPU/src/control.cpp" "CMakeFiles/CPU.dir/src/control.cpp.o" "gcc" "CMakeFiles/CPU.dir/src/control.cpp.o.d"
   "/home/ivan/cpu/CPU/src/cpu.cpp" "CMakeFiles/CPU.dir/src/cpu.cpp.o" "gcc" "CMakeFiles/CPU.dir/src/cpu.cpp.o.d"
   "/home/ivan/cpu/CPU/src/decoder.cpp" "CMakeFiles/CPU.dir/src/decoder.cpp.o" "gcc" "CMakeFiles/CPU.dir/src/decoder.cpp.o.d"
+  "/home/ivan/cpu/CPU/src/display.cpp" "CMakeFiles/CPU.dir/src/display.cpp.o" "gcc" "CMakeFiles/CPU.dir/src/display.cpp.o.d"
   "/home/ivan/cpu/CPU/src/logical.cpp" "CMakeFiles/CPU.dir/src/logical.cpp.o" "gcc" "CMakeFiles/CPU.dir/src/logical.cpp.o.d"
   "/home/ivan/cpu/CPU/src/shifter.cpp" "CMakeFiles/CPU.dir/src/shifter.cpp.o" "gcc" "CMakeFiles/CPU.dir/src/shifter.cpp.o.d"
   )

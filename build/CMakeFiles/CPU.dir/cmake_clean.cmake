@@ -9,6 +9,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/CPU.dir/src/cpu.cpp.o.d"
   "CMakeFiles/CPU.dir/src/decoder.cpp.o"
   "CMakeFiles/CPU.dir/src/decoder.cpp.o.d"
+  "CMakeFiles/CPU.dir/src/display.cpp.o"
+  "CMakeFiles/CPU.dir/src/display.cpp.o.d"
   "CMakeFiles/CPU.dir/src/logical.cpp.o"
   "CMakeFiles/CPU.dir/src/logical.cpp.o.d"
   "CMakeFiles/CPU.dir/src/shifter.cpp.o"

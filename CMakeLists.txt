@@ -19,4 +19,6 @@ add_executable(CPU
     src/adder.cpp
     src/logical.cpp
     src/shifter.cpp
+    src/display.cpp
+
 )
