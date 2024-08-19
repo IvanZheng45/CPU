@@ -1,4 +1,4 @@
-- **SET (x, y), (R, G, B)**: Set color values for coordinates (x, y).
+- **SET (x, y), (R, G, B)**: Set color values of display for coordinates (x, y).
 - **MOV AX, BX**: Move the value from register BX to register AX.
 - **ADD AX, BX**: Add the value of register BX to register AX.
 - **SUB AX, BX**: Subtract the value of register BX from register AX.
@@ -6,10 +6,10 @@
 - **DIV AX, BX**: Divide the value of register AX by the value of register BX.
 - **INC AX**: Increment the value of register AX by 1.
 - **DEC AX**: Decrement the value of register AX by 1.
-- **BEQ AX, BX, IMM**: Branch to IMM if the value of register AX is equal to the value of register BX.
-- **BNE AX, BX, IMM**: Branch to IMM if the value of register AX is not equal to the value of register BX.
-- **BGEZ AX, IMM**: Branch to IMM if the value of register AX is greater than or equal to zero.
-- **BLTZ AX, IMM**: Branch to IMM if the value of register AX is less than zero.
+- **BEQ AX, BX, IMM**: Increments pc by IMM if the value of register AX is equal to the value of register BX.
+- **BNE AX, BX, IMM**: Increments pc by IMM if the value of register AX is not equal to the value of register BX.
+- **BGEZ AX, IMM**: Increments pc by IMM if the value of register AX is greater than or equal to zero.
+- **BLTZ AX, IMM**: Increments pc by IMM if the value of register AX is less than zero.
 - **AND AX, BX**: Perform a bitwise AND operation between the values of registers AX and BX.
 - **XOR AX, BX**: Perform a bitwise XOR operation between the values of registers AX and BX.
 - **NOT AX**: Perform a bitwise NOT operation on the value of register AX.
