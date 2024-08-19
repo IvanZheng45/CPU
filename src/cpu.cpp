@@ -132,7 +132,6 @@ struct CPU {
             Word Iin = word_fetch(memory, pc);
 
             decoder.decode(Iin);
-            imm = 0b111111;
             Byte IMM_SE = imm & 0x3F;
             IMM_SE |= ((imm & 0x20) ? 0xC0 : 0);
 
@@ -172,15 +171,18 @@ struct CPU {
             if (!pcsel) {
                 pc += 2;
             } else {
-
                 alu.alu(IMM_SE, 0, 4);
+                Byte pcLow = pc & 0xFF;           // Lower 8 bits of pc
+                Byte pcHigh = (pc >> 8) & 0xFF;   // Upper 8 bits of pc
 
-                alu.alu(pc, Y, 0);
+                alu.alu(pcLow, Y, 0);
+                pcLow = Y;
+                alu.alu(pcHigh, C, 0);
 
-                pc = Y;
+                pc = (static_cast<uint16_t>(pcHigh) << 8) | pcLow;
 
             }
-            sp = reg[8];
+        
         }
     }
 };
