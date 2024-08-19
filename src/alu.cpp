@@ -25,7 +25,6 @@ void Alu::alu(Byte A, Byte B, Byte fs) {
 
     control.control(fs);
 
-
     if (OSEL == OSEL_adder){
 
       Byte B_input = BSEL ? ~B : B;
@@ -33,16 +32,18 @@ void Alu::alu(Byte A, Byte B, Byte fs) {
 
       adder.add(A, B_input, CI);
       
-      // std::cout << "A = " << static_cast<int>(A) << std::endl;
 
     };
     if (OSEL == OSEL_logic){
   
       logical.logic(A, B, OA);
+
     };
 
     if (OSEL == OSEL_shifter){
       shifter.shift(A, B, LA, LR);
+      // std::cout << "SHIFFTTT) = " << static_cast<int>(*Y) << std::endl;
+
     };
 
     *Z = 

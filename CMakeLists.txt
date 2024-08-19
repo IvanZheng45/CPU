@@ -10,6 +10,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 # Include directories
 include_directories(include)
 
+# Find SDL2 package
+find_package(SDL2 REQUIRED)
+
+include_directories(${SDL2_INCLUDE_DIRS})
+
 # Add the executable
 add_executable(CPU
     src/cpu.cpp
@@ -20,5 +25,7 @@ add_executable(CPU
     src/logical.cpp
     src/shifter.cpp
     src/display.cpp
-
 )
+
+# Link SDL2 library to the executable
+target_link_libraries(CPU ${SDL2_LIBRARIES})

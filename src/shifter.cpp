@@ -4,6 +4,8 @@
 Shifter::Shifter(Byte* Y, bool* C, bool* V) : Y(Y), C(C), V(V) {}
 
 void Shifter::shift(Byte A, Byte B, bool LA, bool LR) {
+    *Y = 0; // Clear Y before shifting
+
     *Y |= (LR ? ((A >> 1) & 0x01) : 0) << 0;
     *Y |= (LR ? ((A >> 2) & 0x01) : ((A >> 0) & 0x01)) << 1;
     *Y |= (LR ? ((A >> 3) & 0x01) : ((A >> 1) & 0x01)) << 2;
@@ -15,5 +17,4 @@ void Shifter::shift(Byte A, Byte B, bool LA, bool LR) {
 
     *C = LR ? (A & 0x01) : ((A >> 7) & 0x01);
     *V = 0;
-
 }
