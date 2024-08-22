@@ -5,7 +5,7 @@
 #include <cstdint>
 
 
-Alu::Alu(Byte* Y, bool* C, bool* V, bool* N, bool* Z)
+Alu::Alu(Word* Y, bool* C, bool* V, bool* N, bool* Z)
     : Y(Y), C(C), V(V), N(N), Z(Z), 
       control(&BSEL, &CISEL, &CSEL, &OSEL, &LA, &LR, &OA),
       logical(Y, C, V),
@@ -21,7 +21,7 @@ Alu::Alu(Byte* Y, bool* C, bool* V, bool* N, bool* Z)
 }
 
 
-void Alu::alu(Byte A, Byte B, Byte fs) {
+void Alu::alu(Word A, Word B, Byte fs) {
 
     control.control(fs);
 

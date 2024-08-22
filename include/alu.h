@@ -12,14 +12,14 @@
 class Alu {
 public:
     // Constructor
-    Alu(Byte* Y, bool* C, bool* V, bool* N, bool* Z);
+    Alu(Word* Y, bool* C, bool* V, bool* N, bool* Z);
 
     // Method
-    void alu(Byte A, Byte B, Byte fs);
+    void alu(Word A, Word B, Byte fs);
 
 private:
     // Member variables
-    Byte* Y;
+    Word* Y;
     bool* C;
     bool* V;
     bool* N;

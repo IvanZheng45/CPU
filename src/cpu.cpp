@@ -11,7 +11,7 @@
 
 struct Mem {
     static constexpr u32 MAX_MEM = 1024 * 64;
-    Byte Data[MAX_MEM];
+    Word Data[MAX_MEM];
 
     void Initialize() {
         for (u32 i = 0; i < MAX_MEM; i++) {
@@ -19,17 +19,17 @@ struct Mem {
         }
     }
 
-    Byte operator[](u32 Address) const {
+    Word operator[](u32 Address) const {
         return Data[Address];
     }
 
-    Byte& operator[](u32 Address) {
+    Word& operator[](u32 Address) {
         return Data[Address];
     }
 };
 
 struct reg_file {
-    Byte reg[8];
+    Word reg[8];
 
     void Initialize() {
         for (Byte i = 0; i < 8; i++) {
@@ -38,20 +38,19 @@ struct reg_file {
         reg[8] = 0xFF;
     }
 
-    Byte operator[](Byte reg_num) const {
+    Word operator[](Byte reg_num) const {
         return reg[reg_num];
     }
 
-    Byte& operator[](Byte reg_num) {
+    Word& operator[](Byte reg_num) {
         return reg[reg_num];
     }
 };
 
 struct CPU {
-    Word pc;
-    Word sp;
+    Word pc, sp, Y;
     
-    Byte dr, sa, sb, imm, fs, bs, off, Y;
+    Byte dr, sa, sb, imm, fs, bs, off;
     bool mb, md, ld, mw, hlt, mp, pcsel, C, V, N, Z;
 
     Decoder decoder;
@@ -73,23 +72,6 @@ struct CPU {
         reg.Initialize();
     }
 
-    Word word_fetch(Mem& memory, Word point) {
-        Byte a = memory[point];
-        Byte b = memory[point + 1];
-            
-        char str_a[8], str_b[8];
-        sprintf(str_a, "%02X", a);
-        sprintf(str_b, "%02X", b);
-
-        char result_str[16];
-        strcpy(result_str, str_a);
-        strcat(result_str, str_b);
-
-        // Convert the concatenated string back to an integer
-        Word Iin = static_cast<Word>(strtol(result_str, nullptr, 16));
-
-        return Iin;
-    }
 
     void checkButtonPress() {
         std::cout << "CPU is halted. Press Enter to continue..." << std::endl;
@@ -98,16 +80,16 @@ struct CPU {
 
     void update_video(Mem& memory) {
         static constexpr u32 MAX_MEM = 1024 * 64;
-        static constexpr u32 video_size = 64*64*2;
-        Word video_start = MAX_MEM - video_size; // allocate 2 bytes (16 bits) for each pixel
+        static constexpr u32 video_size = 64*64;
+        Word video_start = MAX_MEM - video_size;
 
         while (video_start < MAX_MEM - video_size+1) {
             SDL_Color sdl_color;
             
-            Byte x = ((video_start - video_size) % 128)/2;
+            Byte x = ((video_start - video_size) % 128);
             Byte y = ((video_start - video_size) / 128);
 
-            Word color = word_fetch(memory, video_start);
+            Word color = memory[video_start];
 
             Byte red   = (color >> 11) & 0x1F; // 5 bits for red
             Byte green = (color >> 5) & 0x3F;  // 6 bits for green
@@ -128,20 +110,21 @@ struct CPU {
 
     void Execute(Mem& memory, reg_file& reg) {
 
-        while (word_fetch(memory, pc)) {
-            Word Iin = word_fetch(memory, pc);
+        while (memory[pc]!=0) {
+            Word Iin = memory[pc];
 
             decoder.decode(Iin);
-            Byte IMM_SE = imm & 0x3F;
-            IMM_SE |= ((imm & 0x20) ? 0xC0 : 0);
+       
+            word IMM_SE = imm & 0x3FFF;
+            IMM_SE |= ((imm & 0x2000) ? 0xC000 : 0);
 
-            Byte DataA = reg[sa];
-            Byte DataB = reg[sb];
+            Word DataA = reg[sa];
+            Word DataB = reg[sb];
 
             alu.alu(DataA, mb ? IMM_SE : DataB, fs);
-            Byte DataD = Y;
+            Word DataD = Y;
 
-            Byte DataC = md ? memory[Y] : DataD;
+            Word DataC = md ? memory[Y] : DataD;
 
             if (ld) {
                 reg[dr] = DataC;
@@ -168,19 +151,13 @@ struct CPU {
 
             update_video(memory);
 
+            pcsel = 1;
+
             if (!pcsel) {
-                pc += 2;
+                pc += 1;
             } else {
-                alu.alu(IMM_SE, 0, 4);
-                Byte pcLow = pc & 0xFF;           // Lower 8 bits of pc
-                Byte pcHigh = (pc >> 8) & 0xFF;   // Upper 8 bits of pc
-
-                alu.alu(pcLow, Y, 0);
-                pcLow = Y;
-                alu.alu(pcHigh, C, 0);
-
-                pc = (static_cast<uint16_t>(pcHigh) << 8) | pcLow;
-
+                alu.alu(pc, IMM_SE, 0); 
+                pc = Y;
             }
         
         }
@@ -193,10 +170,8 @@ int main() {
     reg_file reg;
     cpu.Reset(mem, reg);
 
-    mem[0x100] = 0b00100000;
-    mem[0x101] = 0b10011111;
-    mem[0x102] = 0b00000000;
-    mem[0x103] = 0b00000001;
+    mem[0x100] = 0b0010000010011111;
+    mem[0x101] = 0b0000000000000001;
 
     cpu.Execute(mem, reg);
 

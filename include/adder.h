@@ -5,12 +5,12 @@
 
 class Adder {
 public:
-    Adder(Byte* Y, bool* C, bool* V);
+    Adder(Word* Y, bool* C, bool* V);
 
-    void add(Byte A, Byte B, bool CI);
+    void add(Word A, Word B, bool CI);
 
 private:
-    Byte* Y;    // Pointer to the result
+    Word* Y;    // Pointer to the result
     bool* C;    // Pointer to the carry out
     bool* V;    // Pointer to the overflow
 };
