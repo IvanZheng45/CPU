@@ -4,82 +4,273 @@
 #include <string>
 #include <vector>
 #include <bitset>
+#include <optional>
 
-// Define instruction types and registers
 enum class Instruction {
-    SET, MOV, ADD, SUB, MUL, DIV, INC, DEC,
+    SET, MOV, LOAD, STORE,
+    ADD, SUB, MUL, DIV, INC, DEC,
     BEQ, BNE, BGEZ, BLTZ,
     AND, XOR, NOT, PUSH, POP
 };
 
-// Define a structure for instructions
 struct AsmInstruction {
     Instruction instr;
     std::bitset<3> reg1;  // 3-bit register value
     std::bitset<3> reg2;  // 3-bit register value
-    int imm;
+    std::bitset<3> reg3;  // 3-bit register value (for third register)
+    std::bitset<6> imm;   // Immediate value
+    bool imm_set = false;
+
+    // Additional fields for SET instruction
+    int x = 0;  // X-coordinate
+    int y = 0;  // Y-coordinate
+    int r = 0;  // Red color value
+    int g = 0;  // Green color value
+    int b = 0;  // Blue color value
 };
 
-// Function to convert instruction to machine code (placeholder)
-std::string getMachineCode(const AsmInstruction& asmInst) {
-    // Placeholder machine code generation
-    // Replace with actual machine code generation logic
-    switch (asmInst.instr) {
-        case Instruction::MOV:
-            return "MOV_MACHINE_CODE";
-        case Instruction::ADD:
-            return "ADD_MACHINE_CODE";
-        case Instruction::BEQ:
-            return "BEQ_MACHINE_CODE"; // Handle immediate value
-        // Add other cases here
-        default:
-            return "UNKNOWN_INSTRUCTION";
-    }
+// Function to compute the negative of a bitset
+std::string negative(const std::bitset<6>& bitset) {
+    std::bitset<6> inverted = ~bitset; // Invert all bits
+    std::bitset<6> result = inverted.to_ulong() + 1; // Add 1 to the inverted bits
+    return result.to_string(); // Convert back to a 6-bit binary string
 }
 
-// Basic assembler
+// Machine code generator class
+class MachineCodeGenerator {
+public:
+    std::string getMachineCode(const AsmInstruction& asmInst) {
+        switch (asmInst.instr) {
+            case Instruction::MOV:
+                return generateMov(asmInst, std::nullopt, std::nullopt);
+            case Instruction::LOAD:
+                return generateLoad(asmInst, std::nullopt, std::nullopt);
+            case Instruction::STORE:
+                return generateStore(asmInst, std::nullopt, std::nullopt);
+            case Instruction::ADD:
+                return generateAdd(asmInst, std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+            case Instruction::SUB:
+                return generateSub(asmInst, std::nullopt);
+            case Instruction::MUL:
+                return generateMul(asmInst, std::nullopt, std::nullopt);
+            case Instruction::DIV:
+                return generateDiv(asmInst, std::nullopt);
+            case Instruction::INC:
+                return "INC_MACHINE_CODE"; // Placeholder
+            case Instruction::DEC:
+                return "DEC_MACHINE_CODE"; // Placeholder
+            case Instruction::BEQ:
+                return "BEQ_MACHINE_CODE"; // Placeholder
+            case Instruction::BNE:
+                return "BNE_MACHINE_CODE"; // Placeholder
+            case Instruction::BGEZ:
+                return "BGEZ_MACHINE_CODE"; // Placeholder
+            case Instruction::BLTZ:
+                return "BLTZ_MACHINE_CODE"; // Placeholder
+            case Instruction::AND:
+                return "AND_MACHINE_CODE"; // Placeholder
+            case Instruction::XOR:
+                return "XOR_MACHINE_CODE"; // Placeholder
+            case Instruction::NOT:
+                return "NOT_MACHINE_CODE"; // Placeholder
+            case Instruction::PUSH:
+                return "PUSH_MACHINE_CODE"; // Placeholder
+            case Instruction::POP:
+                return "POP_MACHINE_CODE"; // Placeholder
+            case Instruction::SET:
+                return "SET_MACHINE_CODE"; // Placeholder
+            default:
+                return "UNKNOWN_INSTRUCTION";
+        }
+    }
+
+    
+
+private:
+    std::string generateMov(const AsmInstruction& asmInst, 
+                            const std::optional<std::bitset<3>>& customReg1 = std::nullopt, 
+                            const std::optional<std::bitset<3>>& customReg2 = std::nullopt) {
+        std::string reg1 = customReg1.value_or(asmInst.reg1).to_string();
+        std::string reg2 = customReg2.value_or(asmInst.reg2).to_string();
+        return "0101" + reg1 + reg2 + "000000";
+    }
+
+    std::string generateLoad(const AsmInstruction& asmInst, 
+                             const std::optional<std::bitset<3>>& customReg1 = std::nullopt, 
+                             const std::optional<std::bitset<3>>& customReg2 = std::nullopt) {
+        std::string reg1 = customReg1.value_or(asmInst.reg1).to_string();
+        std::string reg2 = customReg2.value_or(asmInst.reg2).to_string();
+        return "0010" + reg2 + reg1 + "000000";
+    }
+
+    std::string generateStore(const AsmInstruction& asmInst, 
+                              const std::optional<std::bitset<3>>& customReg1 = std::nullopt, 
+                              const std::optional<std::bitset<3>>& customReg2 = std::nullopt) {
+        std::string reg1 = customReg1.value_or(asmInst.reg1).to_string();
+        std::string reg2 = customReg2.value_or(asmInst.reg2).to_string();
+        return "0100" + reg2 + reg1 + "000000";
+    }
+
+    std::string generateAdd(const AsmInstruction& asmInst, 
+                            const std::optional<std::bitset<3>>& customReg1 = std::nullopt, 
+                            const std::optional<std::bitset<3>>& customReg2 = std::nullopt, 
+                            const std::optional<std::bitset<3>>& customReg3 = std::nullopt, 
+                            const std::optional<std::bitset<6>>& customImm = std::nullopt) {
+        std::string reg1 = customReg1.value_or(asmInst.reg1).to_string();
+        std::string reg2 = customReg2.value_or(asmInst.reg2).to_string();
+        std::string reg3 = customReg3.value_or(asmInst.reg3).to_string();
+        std::string imm = customImm.has_value() ? customImm->to_string() : asmInst.imm.to_string();
+        std::cout << imm.empty() << std::endl;
+        if  (customReg2 == std::nullopt && (customImm != std::nullopt || asmInst.imm_set))  { // Check for non-zero immediate value
+            return "0101" + reg1 + reg3 + imm;
+        } else {
+            return "0100" + reg1 + reg2 + reg3 + "000";
+        }
+    }
+
+    std::string generateSub(const AsmInstruction& asmInst, 
+                            const std::optional<std::bitset<3>>& customReg1 = std::nullopt, 
+                            const std::optional<std::bitset<3>>& customReg2 = std::nullopt, 
+                            const std::optional<std::bitset<3>>& customReg3 = std::nullopt, 
+                            const std::optional<std::bitset<6>>& customImm = std::nullopt) {
+        std::string reg1 = customReg1.value_or(asmInst.reg1).to_string();
+        std::string reg2 = customReg2.value_or(asmInst.reg2).to_string();
+        std::string reg3 = customReg3.value_or(asmInst.reg3).to_string();
+        std::string imm = customImm.has_value() ? negative(*customImm) : negative(asmInst.imm);
+
+        if  (customReg2 == std::nullopt && (customImm != std::nullopt || asmInst.imm_set))  { // Check for non-zero immediate value
+            return "0101" + reg1 + reg3 + imm;
+        } else {
+            return "1111" + reg1 + reg2 + reg3 + "001";
+        }
+    }
+
+    std::string generateMul(const AsmInstruction& asmInst, 
+                            const std::optional<std::bitset<3>>& customReg2 = std::nullopt, 
+                            const std::optional<std::bitset<3>>& customReg3 = std::nullopt) {
+        std::string reg2 = customReg2.value_or(asmInst.reg2).to_string();
+        std::string reg3 = customReg3.value_or(asmInst.reg3).to_string();
+
+        // Adjust according to your actual machine code specifications
+        return "0111" + reg2 + reg3 + "000001" + "\n"
+             + "1111" + reg2 + reg2 + reg2 + "100" + "\n"
+             + "1111" + asmInst.reg1.to_string() + asmInst.reg1.to_string() + asmInst.reg1.to_string() + "011";
+    }
+
+    std::string generateDiv(const AsmInstruction& asmInst, 
+                           const std::optional<std::bitset<3>>& customReg1 = std::nullopt) {
+        std::string reg1 = customReg1.value_or(asmInst.reg1).to_string();
+        return "DIV_MACHINE_CODE"; // Placeholder
+    }
+};
+// Basic assembler class
 class Assembler {
 public:
+    Assembler() : codeGen() {}
     void parse(const std::string& line) {
         std::istringstream iss(line);
         std::string opcode;
-        std::string reg1Str, reg2Str;
+        int reg1Num, reg2Num, reg3Num, x, y, r, g, b;
         std::string immStr;
         AsmInstruction asmInst;
+        char comma, hash, bracket;
 
         iss >> opcode;
 
         if (opcode == "MOV") {
             asmInst.instr = Instruction::MOV;
-            iss >> reg1Str >> reg2Str;
-            asmInst.reg1 = std::bitset<3>(reg1Str);
-            reg2Str.erase(0, 1); // Remove leading comma
-            asmInst.reg2 = std::bitset<3>(reg2Str);
-        } else if (opcode == "ADD") {
-            asmInst.instr = Instruction::ADD;
-            iss >> reg1Str >> reg2Str;
-            asmInst.reg1 = std::bitset<3>(reg1Str);
-            reg2Str.erase(0, 1); // Remove leading comma
-            asmInst.reg2 = std::bitset<3>(reg2Str);
-        } else if (opcode == "BEQ") {
-            asmInst.instr = Instruction::BEQ;
-            iss >> reg1Str >> reg2Str >> immStr;
-            asmInst.reg1 = std::bitset<3>(reg1Str);
-            reg2Str.erase(0, 1); // Remove leading comma
-            asmInst.reg2 = std::bitset<3>(reg2Str);
-            asmInst.imm = std::stoi(immStr);
+            iss >> reg1Num >> comma >> reg2Num;
+            asmInst.reg1 = std::bitset<3>(reg1Num);
+            asmInst.reg2 = std::bitset<3>(reg2Num);
+
+        } else if (opcode == "LOAD") {
+            asmInst.instr = Instruction::LOAD;
+            iss >> reg1Num >> comma >> bracket >> reg2Num >> bracket;
+            asmInst.reg1 = std::bitset<3>(reg1Num);
+            asmInst.reg2 = std::bitset<3>(reg2Num);
+
+        } else if (opcode == "STORE") {
+            asmInst.instr = Instruction::STORE;
+            iss >> reg1Num >> comma >> bracket >> reg2Num >> bracket;
+            asmInst.reg1 = std::bitset<3>(reg1Num);
+            asmInst.reg2 = std::bitset<3>(reg2Num);
+
+        } else if (opcode == "ADD" || opcode == "SUB" || opcode == "MUL" || opcode == "DIV" ||
+                   opcode == "AND" || opcode == "XOR" || opcode == "NOT") {
+            std::string reg1, reg2, reg3;
+            iss >> reg1 >> reg2 >> reg3;
+
+            if (opcode == "ADD")
+                asmInst.instr = Instruction::ADD;
+            else if (opcode == "SUB")
+                asmInst.instr = Instruction::SUB;
+            else if (opcode == "MUL")
+                asmInst.instr = Instruction::MUL;
+            else if (opcode == "DIV")
+                asmInst.instr = Instruction::DIV;
+            else if (opcode == "XOR")
+                asmInst.instr = Instruction::XOR;
+            else if (opcode == "NOT")
+                asmInst.instr = Instruction::NOT;
+
+            if (reg2[0] == '#') {  // Immediate value detected
+                int immValue = std::stoi(reg2.substr(1));  // Skip the '#' and convert to int
+                asmInst.reg1 = std::bitset<3>(std::stoi(reg1));
+                asmInst.imm = std::bitset<6>(immValue);
+                asmInst.reg3 = std::bitset<3>(std::stoi(reg3));
+                asmInst.imm_set = true;
+            } else {  // Register to register operation
+                asmInst.reg1 = std::bitset<3>(std::stoi(reg1));
+                asmInst.reg2 = std::bitset<3>(std::stoi(reg2));
+                asmInst.reg3 = std::bitset<3>(std::stoi(reg3));
+            }
+        } else if (opcode == "BEQ" || opcode == "BNE") {
+            asmInst.instr = (opcode == "BEQ") ? Instruction::BEQ : Instruction::BNE;
+            iss >> reg1Num >> comma >> reg2Num >> comma >> hash >> immStr;
+            asmInst.reg1 = std::bitset<3>(reg1Num);
+            asmInst.reg2 = std::bitset<3>(reg2Num);
+            asmInst.imm = std::bitset<6>(std::stoi(immStr));
+            asmInst.imm_set = true;
+
+
+        } else if (opcode == "BGEZ" || opcode == "BLTZ") {
+            asmInst.instr = (opcode == "BGEZ") ? Instruction::BGEZ : Instruction::BLTZ;
+            iss >> reg1Num >> comma >> hash >> immStr;
+            asmInst.reg1 = std::bitset<3>(reg1Num);
+            asmInst.imm = std::bitset<6>(std::stoi(immStr));
+            asmInst.imm_set = true;
+
+        } else if (opcode == "INC" || opcode == "DEC") {
+            asmInst.instr = (opcode == "INC") ? Instruction::INC : Instruction::DEC;
+            iss >> reg1Num;
+            asmInst.reg1 = std::bitset<3>(reg1Num);
+
+        } else if (opcode == "PUSH" || opcode == "POP") {
+            asmInst.instr = (opcode == "PUSH") ? Instruction::PUSH : Instruction::POP;
+            iss >> reg1Num;
+            asmInst.reg1 = std::bitset<3>(reg1Num);
+
+        } else if (opcode == "SET") {
+            asmInst.instr = Instruction::SET;
+            iss >> bracket >> x >> comma >> y >> bracket >> comma >> bracket >> r >> comma >> g >> comma >> b >> bracket;
+            asmInst.x = x;
+            asmInst.y = y;
+            asmInst.r = r;
+            asmInst.g = g;
+            asmInst.b = b;
+
         } else {
             std::cerr << "Unknown opcode: " << opcode << std::endl;
             return;
         }
 
-        // Add instruction to the list
         instructions.push_back(asmInst);
     }
 
+
     void assemble() {
         for (const auto& inst : instructions) {
-            std::cout << getMachineCode(inst) << std::endl;
+            std::cout << codeGen.getMachineCode(inst) << std::endl;
         }
     }
 
@@ -99,17 +290,28 @@ public:
 
 private:
     std::vector<AsmInstruction> instructions;
+    MachineCodeGenerator codeGen; 
+    std::bitset<3> parseRegister(const std::string& regStr) {
+        if (regStr.size() == 3 && regStr.find_first_not_of("01") == std::string::npos) {
+            // The string is a binary representation
+            return std::bitset<3>(regStr);
+        } else {
+            // The string is a decimal number
+            return std::bitset<3>(std::stoi(regStr));
+        }
+    }
 };
 
-// Example usage
 int main() {
+    // Example usage
     Assembler assembler;
-
-    // Read and parse assembly code from a file
-    assembler.readFile("assembly.asm");
+    assembler.readFile("/home/ivan/cpu/ASSEMBLER/src/assemble.asm");
 
     // Assemble the instructions and output the machine code
     assembler.assemble();
+
+
+
 
     return 0;
 }
