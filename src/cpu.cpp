@@ -115,7 +115,7 @@ struct CPU {
 
             decoder.decode(Iin);
        
-            word IMM_SE = imm & 0x3FFF;
+            Word IMM_SE = imm & 0x3FFF;
             IMM_SE |= ((imm & 0x2000) ? 0xC000 : 0);
 
             Word DataA = reg[sa];
