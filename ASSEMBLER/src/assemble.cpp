@@ -52,33 +52,33 @@ public:
             case Instruction::SUB:
                 return generateSub(asmInst, std::nullopt);
             case Instruction::MUL:
-                return generateMul(asmInst, std::nullopt, std::nullopt);
+                // return generateMul(asmInst, std::nullopt, std::nullopt);
             case Instruction::DIV:
-                return generateDiv(asmInst, std::nullopt);
+                // return generateDiv(asmInst, std::nullopt);
             case Instruction::INC:
-                return "INC_MACHINE_CODE"; // Placeholder
+                return generateInc(asmInst, std::nullopt); 
             case Instruction::DEC:
-                return "DEC_MACHINE_CODE"; // Placeholder
+                return generateDec(asmInst, std::nullopt); 
             case Instruction::BEQ:
-                return "BEQ_MACHINE_CODE"; // Placeholder
+                return generateBeq(asmInst, std::nullopt, std::nullopt, std::nullopt); 
             case Instruction::BNE:
-                return "BNE_MACHINE_CODE"; // Placeholder
+                return generateBne(asmInst, std::nullopt, std::nullopt, std::nullopt); 
             case Instruction::BGEZ:
-                return "BGEZ_MACHINE_CODE"; // Placeholder
+                return generateBgez(asmInst, std::nullopt, std::nullopt); 
             case Instruction::BLTZ:
-                return "BLTZ_MACHINE_CODE"; // Placeholder
+                return generateBltz(asmInst, std::nullopt, std::nullopt);
             case Instruction::AND:
-                return "AND_MACHINE_CODE"; // Placeholder
+                return generateAnd(asmInst, std::nullopt, std::nullopt, std::nullopt, std::nullopt);
             case Instruction::XOR:
-                return "XOR_MACHINE_CODE"; // Placeholder
+                // return generateXor(asmInst, std::nullopt, std::nullopt, std::nullopt, std::nullopt);
             case Instruction::NOT:
-                return "NOT_MACHINE_CODE"; // Placeholder
+                // return generateNot(asmInst, std::nullopt, std::nullopt, std::nullopt, std::nullopt);
             case Instruction::PUSH:
-                return "PUSH_MACHINE_CODE"; // Placeholder
+                return generatePush(asmInst, std::nullopt);
             case Instruction::POP:
-                return "POP_MACHINE_CODE"; // Placeholder
+                return generatePop(asmInst, std::nullopt);
             case Instruction::SET:
-                return "SET_MACHINE_CODE"; // Placeholder
+                // return generateSet(asmInst, std::nullopt, std::nullopt, std::nullopt, std::nullopt);
             default:
                 return "UNKNOWN_INSTRUCTION";
         }
@@ -162,6 +162,98 @@ private:
         std::string reg1 = customReg1.value_or(asmInst.reg1).to_string();
         return "DIV_MACHINE_CODE"; // Placeholder
     }
+    std::string generateInc(const AsmInstruction& asmInst, 
+                           const std::optional<std::bitset<3>>& customReg1 = std::nullopt) {
+        std::bitset<3> reg1 = customReg1.value_or(asmInst.reg1);
+        return generateAdd(asmInst, reg1, std::nullopt, reg1, 1); // Placeholder
+    }
+    std::string generateDec(const AsmInstruction& asmInst, 
+                           const std::optional<std::bitset<3>>& customReg1 = std::nullopt) {
+        std::bitset<3> reg1 = customReg1.value_or(asmInst.reg1);
+        return generateAdd(asmInst, reg1, std::nullopt, reg1, -1); // Placeholder
+    }
+    std::string generateBeq(const AsmInstruction& asmInst, 
+                           const std::optional<std::bitset<3>>& customReg1 = std::nullopt,
+                           const std::optional<std::bitset<3>>& customReg2 = std::nullopt,
+                           const std::optional<std::bitset<6>>& customImm = std::nullopt) {
+        std::string reg1 = customReg1.value_or(asmInst.reg1).to_string();
+        std::string reg2 = customReg2.value_or(asmInst.reg1).to_string();
+        std::string imm = customImm.value_or(asmInst.imm).to_string();
+        return "1000" + reg2 + reg1+ imm; 
+    }
+    std::string generateBne(const AsmInstruction& asmInst, 
+                           const std::optional<std::bitset<3>>& customReg1 = std::nullopt,
+                           const std::optional<std::bitset<3>>& customReg2 = std::nullopt,
+                           const std::optional<std::bitset<6>>& customImm = std::nullopt) {
+        std::string reg1 = customReg1.value_or(asmInst.reg1).to_string();
+        std::string reg2 = customReg2.value_or(asmInst.reg1).to_string();
+        std::string imm = customImm.value_or(asmInst.imm).to_string();
+        return "1001" + reg2 + reg1 + imm; // Placeholder
+    }
+    std::string generateBgez(const AsmInstruction& asmInst, 
+                           const std::optional<std::bitset<3>>& customReg1 = std::nullopt,
+                           const std::optional<std::bitset<6>>& customImm = std::nullopt) {
+        std::string reg1 = customReg1.value_or(asmInst.reg1).to_string();
+        std::string imm = customImm.value_or(asmInst.imm).to_string();
+        return "1001" + reg1 + reg1+ imm; // Placeholder
+    }
+    std::string generateBltz(const AsmInstruction& asmInst, 
+                           const std::optional<std::bitset<3>>& customReg1 = std::nullopt,
+                           const std::optional<std::bitset<6>>& customImm = std::nullopt) {
+        std::string reg1 = customReg1.value_or(asmInst.reg1).to_string();
+        std::string imm = customImm.value_or(asmInst.imm).to_string();
+        return "1011" + reg1 + reg1+ imm; // Placeholder
+    }
+
+    std::string generateAnd(const AsmInstruction& asmInst, 
+                            const std::optional<std::bitset<3>>& customReg1 = std::nullopt, 
+                            const std::optional<std::bitset<3>>& customReg2 = std::nullopt, 
+                            const std::optional<std::bitset<3>>& customReg3 = std::nullopt, 
+                            const std::optional<std::bitset<6>>& customImm = std::nullopt) {
+        std::string reg1 = customReg1.value_or(asmInst.reg1).to_string();
+        std::string reg2 = customReg2.value_or(asmInst.reg2).to_string();
+        std::string reg3 = customReg3.value_or(asmInst.reg3).to_string();
+        std::string imm = customImm.has_value() ? customImm->to_string() : asmInst.imm.to_string();
+        std::cout << imm.empty() << std::endl;
+        if  (customReg2 == std::nullopt && (customImm != std::nullopt || asmInst.imm_set))  { // Check for non-zero immediate value
+            return "0110" + reg1 + reg3 + imm;
+        } else {
+            return "1111" + reg1 + reg2 + reg3 + "000";
+        }
+    }
+    std::string generateOr(const AsmInstruction& asmInst, 
+                            const std::optional<std::bitset<3>>& customReg1 = std::nullopt, 
+                            const std::optional<std::bitset<3>>& customReg2 = std::nullopt, 
+                            const std::optional<std::bitset<3>>& customReg3 = std::nullopt, 
+                            const std::optional<std::bitset<6>>& customImm = std::nullopt) {
+        std::string reg1 = customReg1.value_or(asmInst.reg1).to_string();
+        std::string reg2 = customReg2.value_or(asmInst.reg2).to_string();
+        std::string reg3 = customReg3.value_or(asmInst.reg3).to_string();
+        std::string imm = customImm.has_value() ? customImm->to_string() : asmInst.imm.to_string();
+        std::cout << imm.empty() << std::endl;
+        if  (customReg2 == std::nullopt && (customImm != std::nullopt || asmInst.imm_set))  { // Check for non-zero immediate value
+            return "0111" + reg1 + reg3 + imm;
+        } else {
+            return "1111" + reg1 + reg2 + reg3 + "110";
+        }
+    }
+
+    std::string generatePush(const AsmInstruction& asmInst, 
+                            const std::optional<std::bitset<3>>& customReg1 = std::nullopt) {
+        std::bitset<3> reg1 = customReg1.value_or(asmInst.reg1);
+        
+        
+        return generateStore(asmInst, reg1, 8) + "\n" + generateSub(asmInst, 8, std::nullopt, 8, -1);
+    }
+    
+     std::string generatePop(const AsmInstruction& asmInst, 
+                            const std::optional<std::bitset<3>>& customReg1 = std::nullopt) {
+        std::bitset<3> reg1 = customReg1.value_or(asmInst.reg1);
+        
+            
+        return generateLoad(asmInst, reg1, 8)  +  "\n" + generateAdd(asmInst, 8, std::nullopt, 8, 1);
+    }
+
 };
 // Basic assembler class
 class Assembler {
@@ -305,7 +397,7 @@ private:
 int main() {
     // Example usage
     Assembler assembler;
-    assembler.readFile("/home/ivan/cpu/ASSEMBLER/src/assemble.asm");
+    assembler.readFile("/home/ivan/cpu/ASSEMBLER/src/assembly.asm");
 
     // Assemble the instructions and output the machine code
     assembler.assemble();
