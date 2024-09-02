@@ -8,6 +8,8 @@
 #include "alu.h"
 #include <SDL2/SDL.h>
 #include "display.h"
+#include <vector>
+#include "/home/ivan/cpu/ASSEMBLER/include/assemble.h"
 
 struct Mem {
     static constexpr u32 MAX_MEM = 1024 * 64;
@@ -35,7 +37,7 @@ struct reg_file {
         for (Byte i = 0; i < 8; i++) {
             reg[i] = 0;
         }
-        reg[8] = 0xFF;
+        reg[7] = 0xFF;
     }
 
     Word operator[](Byte reg_num) const {
@@ -115,19 +117,21 @@ struct CPU {
 
             decoder.decode(Iin);
        
-            Word IMM_SE = imm & 0x3FFF;
-            IMM_SE |= ((imm & 0x2000) ? 0xC000 : 0);
-
+            Word IMM_SE = imm & 0x3F;
+            if (imm & 0x20) {                      
+                IMM_SE |= 0xFFC0;                   
+            }
             Word DataA = reg[sa];
             Word DataB = reg[sb];
 
             alu.alu(DataA, mb ? IMM_SE : DataB, fs);
             Word DataD = Y;
-
+        
             Word DataC = md ? memory[Y] : DataD;
 
             if (ld) {
                 reg[dr] = DataC;
+                
             }
 
             if (mw) {
@@ -151,18 +155,22 @@ struct CPU {
 
             update_video(memory);
 
-            pcsel = 1;
-
             if (!pcsel) {
                 pc += 1;
             } else {
                 alu.alu(pc, IMM_SE, 0); 
                 pc = Y;
             }
-        
+            // std::cout << reg[0] << std::endl;
+        }
+    }
+    void loadInstructions(const std::vector<Word>& machineCodes, Mem& memory) {
+        for (size_t i = 0; i < machineCodes.size(); ++i) {
+            memory[i + 0x100] = machineCodes[i];
         }
     }
 };
+
 
 int main() {
     Mem mem;
@@ -170,8 +178,14 @@ int main() {
     reg_file reg;
     cpu.Reset(mem, reg);
 
-    mem[0x100] = 0b0010000010011111;
-    mem[0x101] = 0b0000000000000001;
+    Assembler assembler;
+    assembler.readFile("/home/ivan/cpu/ASSEMBLER/src/assemble.asm");
+
+    // Assemble the instructions to get machine codes
+    std::vector<Word> machineCodes = assembler.assemble();
+
+    // Load the assembled machine codes into the CPU's memory
+    cpu.loadInstructions(machineCodes, mem);
 
     cpu.Execute(mem, reg);
 

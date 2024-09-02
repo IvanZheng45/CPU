@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/MyProject.dir/src/cpu.cpp.o CMakeFiles/MyProject.dir/src/decoder.cpp.o CMakeFiles/MyProject.dir/src/control.cpp.o CMakeFiles/MyProject.dir/src/alu.cpp.o CMakeFiles/MyProject.dir/src/adder.cpp.o CMakeFiles/MyProject.dir/src/logical.cpp.o CMakeFiles/MyProject.dir/src/shifter.cpp.o -o MyProject 

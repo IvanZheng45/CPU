@@ -19,9 +19,9 @@ void Adder::add(Word A, Word B, bool CI) {
 
         // Set the sum bit in the result
         *Y |= (sum << i); 
-        
         CI = carry_out[i]; // Update CI for the next bit
     }
+
 
     // Set the final carry out and overflow
     *C = carry_out[15]; // Final carry out

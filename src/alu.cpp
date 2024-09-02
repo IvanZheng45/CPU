@@ -27,11 +27,10 @@ void Alu::alu(Word A, Word B, Byte fs) {
 
     if (OSEL == OSEL_adder){
 
-      Byte B_input = BSEL ? ~B : B;
+      Word B_input = BSEL ? ~B : B;
       bool CI = CISEL ? 1 : 0;
 
       adder.add(A, B_input, CI);
-      
 
     };
     if (OSEL == OSEL_logic){
