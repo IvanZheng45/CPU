@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/cpu.dir/cpu.cpp.o CMakeFiles/cpu.dir/decoder.cpp.o CMakeFiles/cpu.dir/control.cpp.o CMakeFiles/cpu.dir/alu.cpp.o CMakeFiles/cpu.dir/adder.cpp.o CMakeFiles/cpu.dir/logical.cpp.o CMakeFiles/cpu.dir/shifter.cpp.o CMakeFiles/cpu.dir/display.cpp.o -o cpu 

@@ -31,8 +31,8 @@
 - **AND R1, #IMM, R3**: Perform a bitwise AND operation between the value of register `R1` and the immediate value `#IMM` and store the result in register `R3`.
 - **XOR R1, R2, R3**: Perform a bitwise XOR operation between the values of registers `R1` and `R2` and store the result in register `R3`.
 - **XOR R1, #IMM, R3**: Perform a bitwise XOR operation between the value of register `R1` and the immediate value `#IMM` and store the result in register `R3`.
-- **NOT R1, R2, R3**: Perform a bitwise NOT operation on the value of register `R1` and store the result in register 'R3'.
-- **NOT R1, #IMM, R3**: Perform a bitwise NOT operation on the value of register `R1` and the immediate value `#IMM` and store the result in register `R3`.
+- **NOT R1, R2**: Perform a bitwise NOT operation on the value of register `R1` and store the result in register `R2`.
+- **NOT #IMM, R1**: Perform a bitwise NOT operation on the immediate value `#IMM` and store the result in register `R1`.
 
 
 ## Stack Operations

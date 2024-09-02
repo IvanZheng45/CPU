@@ -1,0 +1,8 @@
+/home/ivan/cpu/build/CMakeFiles/edit_cache.dir
+/home/ivan/cpu/build/CMakeFiles/rebuild_cache.dir
+/home/ivan/cpu/build/CPU/CMakeFiles/CPU.dir
+/home/ivan/cpu/build/CPU/CMakeFiles/edit_cache.dir
+/home/ivan/cpu/build/CPU/CMakeFiles/rebuild_cache.dir
+/home/ivan/cpu/build/ASSEMBLER/CMakeFiles/assembler.dir
+/home/ivan/cpu/build/ASSEMBLER/CMakeFiles/edit_cache.dir
+/home/ivan/cpu/build/ASSEMBLER/CMakeFiles/rebuild_cache.dir
