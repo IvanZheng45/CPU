@@ -16,6 +16,7 @@ void Decoder::decode(Word INST) {
     Byte RD = (INST >> 3) & 0x7;
     Byte FUNCT = INST & 0x7;
     Byte IMM_INST = INST & 0x3F;
+    
     switch (OP) {
         case 0x0:
             if (FUNCT == 0x0) {
@@ -186,7 +187,10 @@ void Decoder::decode(Word INST) {
             *hlt = false;
             *bs = 0x4;
             *off = 0x0;
+            
+
             break;
+            
         default:
             *dr = RD;
             *sa = RS;

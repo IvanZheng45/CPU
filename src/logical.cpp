@@ -1,6 +1,6 @@
 #include "logical.h"
 #include "symbols.h"
-
+#include <iostream>
 Logical::Logical(Word* Y, bool* C, bool* V) : Y(Y), C(C), V(V) {}
 
 // Function to perform logical operations
@@ -18,4 +18,5 @@ void Logical::logic(Word A, Word B, bool OA) {
         
         *Y |= (bitY << i); // Set the bit in the result
     }
+
 }

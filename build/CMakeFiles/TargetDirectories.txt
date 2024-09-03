@@ -1,0 +1,3 @@
+/home/ivan/cpu/CPU/build/CMakeFiles/CPU.dir
+/home/ivan/cpu/CPU/build/CMakeFiles/edit_cache.dir
+/home/ivan/cpu/CPU/build/CMakeFiles/rebuild_cache.dir

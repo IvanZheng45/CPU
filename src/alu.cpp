@@ -25,6 +25,8 @@ void Alu::alu(Word A, Word B, Byte fs) {
 
     control.control(fs);
 
+    
+
     if (OSEL == OSEL_adder){
 
       Word B_input = BSEL ? ~B : B;
@@ -34,14 +36,14 @@ void Alu::alu(Word A, Word B, Byte fs) {
 
     };
     if (OSEL == OSEL_logic){
-  
+      
       logical.logic(A, B, OA);
 
     };
 
     if (OSEL == OSEL_shifter){
       shifter.shift(A, B, LA, LR);
-      // std::cout << "SHIFFTTT) = " << static_cast<int>(*Y) << std::endl;
+      std::cout << LR << std::endl;
 
     };
 

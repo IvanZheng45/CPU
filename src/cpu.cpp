@@ -9,7 +9,7 @@
 #include <SDL2/SDL.h>
 #include "display.h"
 #include <vector>
-#include "/home/ivan/cpu/ASSEMBLER/include/assemble.h"
+#include "assemble.h"
 
 struct Mem {
     static constexpr u32 MAX_MEM = 1024 * 64;
@@ -161,12 +161,15 @@ struct CPU {
                 alu.alu(pc, IMM_SE, 0); 
                 pc = Y;
             }
-            // std::cout << reg[0] << std::endl;
+            
+            std::cout << reg[1] << std::endl;
+
         }
     }
     void loadInstructions(const std::vector<Word>& machineCodes, Mem& memory) {
         for (size_t i = 0; i < machineCodes.size(); ++i) {
             memory[i + 0x100] = machineCodes[i];
+            
         }
     }
 };
@@ -179,9 +182,8 @@ int main() {
     cpu.Reset(mem, reg);
 
     Assembler assembler;
-    assembler.readFile("/home/ivan/cpu/ASSEMBLER/src/assemble.asm");
+    assembler.readFile("/home/ivan/cpu/CPU/assembly/assemble.asm");
 
-    // Assemble the instructions to get machine codes
     std::vector<Word> machineCodes = assembler.assemble();
 
     // Load the assembled machine codes into the CPU's memory

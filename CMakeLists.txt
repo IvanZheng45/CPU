@@ -25,7 +25,6 @@ add_executable(CPU
     src/logical.cpp
     src/shifter.cpp
     src/display.cpp
+    src/assemble.cpp
 )
-
-# Link SDL2 library to the executable
 target_link_libraries(CPU ${SDL2_LIBRARIES})
