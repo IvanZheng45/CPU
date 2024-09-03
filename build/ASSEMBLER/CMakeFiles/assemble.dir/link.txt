@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/assemble.dir/assemble.cpp.o -o assemble  -L/usr/lib/x86_64-linux-gnu  -lSDL2 

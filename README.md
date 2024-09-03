@@ -20,6 +20,15 @@
 - **INC R1**: Increment the value of register `R1` by 1.
 - **DEC R1**: Decrement the value of register `R1` by 1.
 
+## Shift Operations
+- **SHL R1, R3**: Shift the value in register `R1` to the left by 1 bit and store the result in register `R2`.
+- **SHL #IMM, R3**: Shift the value `IMM` to the left by 1 bit and store the result in register `R1`.
+- **SHR R1, R3**: Shift the value in register `R1` to the right by 1 bit and store the result in register `R2`.
+- **SHR #IMM, R3**: Shift the value `IMM` to the right by 1 bit and store the result in register `R1`.
+- **SAR R1, R3**: Shift the value in register `R1` to the right arithmetically by 1 bit and store the result in register `R2`. (Sign bit is preserved for signed values.)
+- **SAR #IMM, R3**: Shift the value `IMM` to the right arithmetically by 1 bit and store the result in register `R1`. (Sign bit is preserved for signed values.)
+
+
 ## Branching Operations
 - **BEQ R1, R2, #IMM**: Increment the program counter (`pc`) by `#IMM` if the value of register `R1` is equal to the value of register `R2`.
 - **BNE R1, R2, #IMM**: Increment the program counter (`pc`) by `#IMM` if the value of register `R1` is not equal to the value of register `R2`.
@@ -31,8 +40,8 @@
 - **AND R1, #IMM, R3**: Perform a bitwise AND operation between the value of register `R1` and the immediate value `#IMM` and store the result in register `R3`.
 - **XOR R1, R2, R3**: Perform a bitwise XOR operation between the values of registers `R1` and `R2` and store the result in register `R3`.
 - **XOR R1, #IMM, R3**: Perform a bitwise XOR operation between the value of register `R1` and the immediate value `#IMM` and store the result in register `R3`.
-- **NOT R1, R2**: Perform a bitwise NOT operation on the value of register `R1` and store the result in register `R2`.
-- **NOT #IMM, R1**: Perform a bitwise NOT operation on the immediate value `#IMM` and store the result in register `R1`.
+- **NOT R1, R3**: Perform a bitwise NOT operation on the value of register `R1` and store the result in register `R3`.
+- **NOT #IMM, R3**: Perform a bitwise NOT operation on the immediate value `#IMM` and store the result in register `R1`.
 
 
 ## Stack Operations
